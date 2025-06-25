@@ -37,9 +37,23 @@
     <div class="col-md-3 bg-white p-4 border-end min-vh-100">
       <div class="sidebar">
         <h4 class="mb-4">📚 เมนูคู่มือ</h4>
-        <div class="nav flex-column nav-pills">
-          <button class="nav-link active" onclick="showSection('publicGuide', this)">👥 บุคคลทั่วไป</button>
-          <button class="nav-link" onclick="showSection('staffGuide', this)">👮‍♂️ เจ้าหน้าที่</button>
+        <div class="nav flex-column">
+    
+          <!-- บุคคลทั่วไป -->
+          <div class="mb-2">
+            <div class="fw-bold text-secondary">👥 บุคคลทั่วไป</div>
+            <button class="nav-link ps-4" onclick="scrollToSubsection('publicGuide', 'pg_home')">🏠 หน้าหลัก</button>
+            <button class="nav-link ps-4" onclick="scrollToSubsection('publicGuide', 'pg_search')">🔍 ค้นหาการจอง</button>
+          </div>
+    
+          <!-- เจ้าหน้าที่ -->
+          <div class="mt-3">
+            <div class="fw-bold text-secondary">👮‍♂️ เจ้าหน้าที่</div>
+            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_login')">🔑 เข้าสู่ระบบ</button>
+            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_booking')">📋 จองกิจกรรม</button>
+            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_manage')">🗂 จัดการข้อมูล</button>
+            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_checkin')">✅ Check-in / สถิติ</button>
+          </div>
         </div>
       </div>
     </div>
@@ -53,11 +67,11 @@
         <h2 class="text-primary">👥 สำหรับบุคคลทั่วไป</h2>
         <p>ระบบเปิดให้ผู้เข้าร่วมงานดูข้อมูลกิจกรรมและค้นหาการจองของตนเองได้</p>
 
-        <h4 class="mt-4">🏠 หน้าหลัก</h4>
+        <h4 id="pg_home">🏠 หน้าหลัก</h4>
         <p>แสดงรายการฐานกิจกรรมทั้งหมด พร้อมรายละเอียด เช่น ชื่อฐาน สถานที่ เวลา และจำนวนที่รับได้</p>
         <img src="https://raw.githubusercontent.com/LogicsDevStudio/EBS-RTNMU/refs/heads/main/images/webapp/games/homepage.jpg" class="img-fluid rounded shadow mb-3" alt="ตัวอย่างหน้าหลัก">
 
-        <h4 class="mt-4">🔍 ค้นหาการจอง</h4>
+        <h4 id="pg_search">🔍 ค้นหาการจอง</h4>
         <p>กรอกชื่อหรือรหัสการจองเพื่อดูข้อมูลการจองกิจกรรมของคุณ</p>
 
         <h4 class="mt-4">🎬 วิดีโอแนะนำระบบ</h4>
@@ -71,6 +85,8 @@
         <h2 class="text-primary">👮‍♂️ สำหรับเจ้าหน้าที่</h2>
         <p>เจ้าหน้าที่สามารถจัดการระบบและดูข้อมูลกิจกรรมได้หลากหลายเมนู</p>
 
+          <h4 id="sg_login">🔑 เข้าสู่ระบบ</h4>
+          <h4 id="sg_booking">📋 จองกิจกรรม</h4>
         <div class="accordion" id="staffMenu">
           <div class="accordion-item">
             <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#menu1">เข้าสู่ระบบ</button></h2>
@@ -93,6 +109,7 @@
             <div id="menu3" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
               <div class="accordion-body">
                 <ul>
+                  <h4 id="sg_manage">🗂 จัดการข้อมูล</h4>
                   <li>🧑‍💼 <strong>จัดการบัญชีผู้ใช้:</strong> เพิ่ม ลบ แก้ไขผู้ใช้ระบบ</li>
                   <li>🗂 <strong>จัดการกิจกรรม:</strong> เพิ่ม/ลบกิจกรรม ฐานกิจกรรม</li>
                   <li>🕒 <strong>จัดการรอบฐานกิจกรรม:</strong> ตั้งเวลารอบแต่ละกิจกรรม</li>
@@ -105,6 +122,7 @@
             <div id="menu4" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
               <div class="accordion-body">
                 <ul>
+                  <h4 id="sg_checkin">✅ Check-in / สถิติ</h4>
                   <li>✅ <strong>Check-in:</strong> สแกน QR Code หรือค้นหาชื่อ</li>
                   <li>📊 <strong>สถิติ:</strong> แสดงจำนวนผู้เข้าร่วมตามกิจกรรม</li>
                   <li>📋 <strong>ลงทะเบียนหน้างาน:</strong> สำหรับผู้ที่ walk-in</li>
@@ -144,6 +162,23 @@
     if (btn) btn.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  function scrollToSubsection(sectionId, subId) {
+  // เปลี่ยน section
+  document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+
+  // เลื่อนไปที่หัวข้อย่อย
+  const target = document.getElementById(subId);
+  if (target) {
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
+
+  // เปลี่ยนปุ่ม active
+  document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
 </script>
 </body>
 </html>
