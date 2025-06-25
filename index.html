@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>📘 คู่มือการใช้งานระบบ RTNMU</title>
+  <title>คู่มือระบบ NMU Openhouse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -23,6 +23,10 @@
       font-weight: bold;
       color: #0d6efd !important;
     }
+    iframe {
+      max-width: 100%;
+      height: 400px;
+    }
   </style>
 </head>
 <body class="bg-light">
@@ -34,105 +38,112 @@
       <div class="sidebar">
         <h4 class="mb-4">📚 เมนูคู่มือ</h4>
         <div class="nav flex-column nav-pills">
-          <button class="nav-link active" onclick="showSection('userGuide', this)">👤 ผู้ใช้ทั่วไป</button>
-          <button class="nav-link" onclick="showSection('staffGuide', this)">👮‍♀️ เจ้าหน้าที่</button>
-          <a class="nav-link" href="https://notion.site/example" target="_blank">🌐 Notion คู่มือเต็ม</a>
+          <button class="nav-link active" onclick="showSection('publicGuide', this)">👥 บุคคลทั่วไป</button>
+          <button class="nav-link" onclick="showSection('staffGuide', this)">👮‍♂️ เจ้าหน้าที่</button>
         </div>
       </div>
     </div>
 
     <!-- Main Content -->
     <div class="col-md-9 p-5">
-      <h1 class="mb-4">📘 คู่มือการใช้งานระบบ RTNMU</h1>
+      <h1 class="mb-4">📘 คู่มือการใช้งานระบบ NMU Openhouse Management System</h1>
 
-      <!-- User Guide -->
-      <div id="userGuide" class="content-section active">
-        <h2 class="text-primary">👤 คู่มือสำหรับผู้ใช้ทั่วไป</h2>
-        <p>สำหรับนักศึกษาที่ต้องการจองกิจกรรมในระบบ</p>
+      <!-- Public Guide -->
+      <div id="publicGuide" class="content-section active">
+        <h2 class="text-primary">👥 สำหรับบุคคลทั่วไป</h2>
+        <p>ระบบเปิดให้ผู้เข้าร่วมงานดูข้อมูลกิจกรรมและค้นหาการจองของตนเองได้</p>
 
-        <div class="alert alert-info">💡 ระบบเปิดให้จองทุกวันตั้งแต่ 08:00 - 20:00 น.</div>
+        <h4 class="mt-4">🏠 หน้าหลัก</h4>
+        <p>แสดงรายการฐานกิจกรรมทั้งหมด พร้อมรายละเอียด เช่น ชื่อฐาน สถานที่ เวลา และจำนวนที่รับได้</p>
+        <img src="https://raw.githubusercontent.com/LogicsDevStudio/EBS-RTNMU/refs/heads/main/images/webapp/games/homepage.jpg" class="img-fluid rounded shadow mb-3" alt="ตัวอย่างหน้าหลัก">
 
-        <ul>
-          <li><a href="#ug_step1">ขั้นตอนที่ 1: เข้าระบบ</a></li>
-          <li><a href="#ug_step2">ขั้นตอนที่ 2: เลือกกิจกรรม</a></li>
-          <li><a href="#ug_step3">ขั้นตอนที่ 3: ตรวจสอบและยืนยัน</a></li>
-        </ul>
+        <h4 class="mt-4">🔍 ค้นหาการจอง</h4>
+        <p>กรอกชื่อหรือรหัสการจองเพื่อดูข้อมูลการจองกิจกรรมของคุณ</p>
 
-        <hr>
-        <h4 id="ug_step1" class="mt-5">📌 ขั้นตอนที่ 1: เข้าระบบ</h4>
-        <p>เปิดเบราว์เซอร์และเข้าสู่เว็บไซต์: <a href="https://rtnmu-booking.com">https://rtnmu-booking.com</a></p>
-
-        <div class="card mb-3">
-          <div class="card-body">
-            <strong>หมายเหตุ:</strong> ไม่ต้องลงทะเบียนล่วงหน้า นักศึกษาสามารถเข้าระบบและจองได้ทันที
-          </div>
-        </div>
-
-        <h4 id="ug_step2" class="mt-5">📌 ขั้นตอนที่ 2: เลือกกิจกรรม</h4>
-        <p>เลือกกิจกรรมที่ต้องการ โดยระบบจะแสดงจำนวนผู้เข้าร่วมที่เหลือในแต่ละรอบ</p>
-
-        <img src="https://via.placeholder.com/800x300?text=%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%81%E0%B8%B4%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1" class="img-fluid rounded mb-3" alt="กิจกรรมตัวอย่าง">
-
-        <h4 id="ug_step3" class="mt-5">📌 ขั้นตอนที่ 3: ตรวจสอบและยืนยัน</h4>
-        <p>เมื่อเลือกกิจกรรมแล้ว ให้กรอกข้อมูลและกดยืนยัน ระบบจะแสดงรหัสการจอง</p>
-
-        <div class="alert alert-success">
-          🎉 เสร็จสิ้น! อย่าลืมแคปหน้าจอหรือจดรหัสการจองไว้
+        <h4 class="mt-4">🎬 วิดีโอแนะนำระบบ</h4>
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/ChqGiYcztYs?si=Yk7TN_IAmw0vjl8J" title="YouTube video" allowfullscreen></iframe>
         </div>
       </div>
 
       <!-- Staff Guide -->
       <div id="staffGuide" class="content-section">
-        <h2 class="text-primary">👮‍♀️ คู่มือสำหรับเจ้าหน้าที่</h2>
-        <p>สำหรับเจ้าหน้าที่ที่ดูแลระบบ เช่น staff, admin, หรือ check-in</p>
+        <h2 class="text-primary">👮‍♂️ สำหรับเจ้าหน้าที่</h2>
+        <p>เจ้าหน้าที่สามารถจัดการระบบและดูข้อมูลกิจกรรมได้หลากหลายเมนู</p>
 
-        <ul>
-          <li><a href="#sg_login">ขั้นตอนที่ 1: เข้าระบบ</a></li>
-          <li><a href="#sg_manage">ขั้นตอนที่ 2: จัดการกิจกรรม</a></li>
-          <li><a href="#sg_checkin">ขั้นตอนที่ 3: ตรวจสอบ / เช็กอิน</a></li>
+        <div class="accordion" id="staffMenu">
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#menu1">เข้าสู่ระบบ</button></h2>
+            <div id="menu1" class="accordion-collapse collapse show" data-bs-parent="#staffMenu">
+              <div class="accordion-body">
+                เข้าสู่ระบบด้วยอีเมลและรหัสผ่านที่ได้รับจากผู้ดูแลระบบ ผ่านหน้า <code>/login</code>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu2">จองกิจกรรม</button></h2>
+            <div id="menu2" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
+              <div class="accordion-body">
+                เจ้าหน้าที่สามารถจองกิจกรรมแทนผู้เข้าร่วมได้ โดยเลือกฐานกิจกรรมและรอบที่ว่าง
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu3">จัดการข้อมูล</button></h2>
+            <div id="menu3" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
+              <div class="accordion-body">
+                <ul>
+                  <li>🧑‍💼 <strong>จัดการบัญชีผู้ใช้:</strong> เพิ่ม ลบ แก้ไขผู้ใช้ระบบ</li>
+                  <li>🗂 <strong>จัดการกิจกรรม:</strong> เพิ่ม/ลบกิจกรรม ฐานกิจกรรม</li>
+                  <li>🕒 <strong>จัดการรอบฐานกิจกรรม:</strong> ตั้งเวลารอบแต่ละกิจกรรม</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu4">Check-in / สถิติ</button></h2>
+            <div id="menu4" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
+              <div class="accordion-body">
+                <ul>
+                  <li>✅ <strong>Check-in:</strong> สแกน QR Code หรือค้นหาชื่อ</li>
+                  <li>📊 <strong>สถิติ:</strong> แสดงจำนวนผู้เข้าร่วมตามกิจกรรม</li>
+                  <li>📋 <strong>ลงทะเบียนหน้างาน:</strong> สำหรับผู้ที่ walk-in</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="mt-5">📋 รายการเมนูทั้งหมดของเจ้าหน้าที่</h5>
+        <ul class="list-group">
+          <li class="list-group-item">หน้าหลัก (รายการฐานกิจกรรม)</li>
+          <li class="list-group-item">ค้นหาการจอง</li>
+          <li class="list-group-item">เข้าสู่ระบบ</li>
+          <li class="list-group-item">จองกิจกรรม</li>
+          <li class="list-group-item">รายการจอง</li>
+          <li class="list-group-item">จัดการบัญชีผู้ใช้</li>
+          <li class="list-group-item">จัดการกิจกรรม</li>
+          <li class="list-group-item">จัดการรอบฐานกิจกรรม</li>
+          <li class="list-group-item">Check-in</li>
+          <li class="list-group-item">รายการจองทั้งหมด</li>
+          <li class="list-group-item">ลงทะเบียนหน้างาน</li>
+          <li class="list-group-item">สถิติ</li>
+          <li class="list-group-item">ออกจากระบบ</li>
         </ul>
-
-        <hr>
-        <h4 id="sg_login" class="mt-5">🔐 เข้าสู่ระบบ</h4>
-        <p>เข้าสู่ระบบโดยใช้ Email และ Password ที่ได้รับจากผู้ดูแลระบบ</p>
-
-        <div class="mb-3">
-          <code>https://rtnmu-booking.com/admin</code>
-        </div>
-
-        <h4 id="sg_manage" class="mt-5">🛠 จัดการกิจกรรม</h4>
-        <p>ในหน้า “จัดการกิจกรรม” สามารถเพิ่มกิจกรรมใหม่ แก้ไขรายละเอียด และตั้งค่าจำนวนผู้เข้าร่วมต่อรอบ</p>
-
-        <img src="https://via.placeholder.com/800x300?text=%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2+Admin" class="img-fluid rounded mb-3" alt="หน้า Admin">
-
-        <h4 id="sg_checkin" class="mt-5">📋 ตรวจสอบ / เช็กอิน</h4>
-        <p>ในวันงาน ให้เจ้าหน้าที่เปิดหน้าสแกน QR หรือค้นหารายชื่อเพื่อเช็กอิน</p>
-
-        <div class="alert alert-warning">
-          💡 หากไม่พบชื่อผู้จอง ให้ตรวจสอบตัวสะกด และรหัสการจอง
-        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   function showSection(sectionId, btn) {
-    // ซ่อนทุก section
     document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-
-    // แสดง section ที่เลือก
     document.getElementById(sectionId).classList.add('active');
-
-    // scroll ไปด้านบน
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // เปลี่ยน active ของปุ่ม
     document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
     if (btn) btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
-
 </body>
 </html>
