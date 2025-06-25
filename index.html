@@ -13,19 +13,25 @@
       height: 100vh;
       overflow-y: auto;
       z-index: 1000;
+      width: 25%; /* เพิ่ม width ให้ชัดเจน */
     }
     
     .main-content {
-      margin-left: 25%; /* เท่ากับ col-md-3 */
+      margin-left: 25%;
+      width: 75%; /* กำหนดความกว้างให้เท่ากับพื้นที่ที่เหลือ */
+      max-width: 75%; /* ป้องกันไม่ให้เกินขนาด */
     }
     
     @media (max-width: 991.98px) {
       .sidebar {
         position: relative;
         height: auto;
+        width: 100%; /* กลับเป็น 100% ในหน้าจอเล็ก */
       }
       .main-content {
         margin-left: 0;
+        width: 100%; /* กลับเป็น 100% ในหน้าจอเล็ก */
+        max-width: 100%;
       }
     }
     
