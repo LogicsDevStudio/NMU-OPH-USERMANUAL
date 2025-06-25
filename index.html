@@ -13,26 +13,126 @@
       height: 100vh;
       overflow-y: auto;
       z-index: 1000;
-      width: 25%; /* เพิ่ม width ให้ชัดเจน */
+      width: 25%;
     }
     
     .main-content {
       margin-left: 25%;
-      width: 75%; /* กำหนดความกว้างให้เท่ากับพื้นที่ที่เหลือ */
-      max-width: 75%; /* ป้องกันไม่ให้เกินขนาด */
+      width: 75%;
+      max-width: 75%;
     }
     
     @media (max-width: 991.98px) {
-      .sidebar {
-        position: relative;
-        height: auto;
-        width: 100%; /* กลับเป็น 100% ในหน้าจอเล็ก */
-      }
-      .main-content {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        position: fixed;
+        width: 80%;
+        max-width: 300px;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        border-right: 2px solid #dee2e6;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
         margin-left: 0;
-        width: 100%; /* กลับเป็น 100% ในหน้าจอเล็ก */
+        width: 100%;
         max-width: 100%;
-      }
+    }
+    }
+
+    /* ปุ่มสำหรับเปิด/ปิด sidebar บนมือถือ */
+    .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+    .sidebar-toggle:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+    }
+
+    @media (max-width: 991.98px) {
+    .sidebar-toggle {
+        display: block;
+    }
+    }
+
+    /* ปรับปรุง nav-link styling */
+    .nav-link {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+    transform: translateX(5px);
+    }
+
+    .nav-link.active {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white !important;
+    border-color: #004085;
+    transform: translateX(5px);
+    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    /* เพิ่ม overlay สำหรับมือถือ */
+    .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.show {
+    display: block;
+    opacity: 1;
+    }
+
+    @media (max-width: 991.98px) {
+    .sidebar.show ~ .sidebar-overlay {
+        display: block;
+        opacity: 1;
+    }
+    }
+
+    /* ปรับปรุง content section transition */
+    .content-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    }
+
+    .content-section.active {
+    opacity: 1;
+    transform: translateY(0);
     }
     
     /* Custom scrollbar for sidebar */
@@ -75,12 +175,12 @@
       background: linear-gradient(180deg, #0056b3, #004085);
     }
     
-    /* Hide sections initially */
-    .section-group {
+    /* Hide content sections initially */
+    .content-section {
       display: none;
     }
     
-    .section-group.active {
+    .content-section.active {
       display: block;
     }
   </style>
@@ -98,6 +198,9 @@
           <!-- บุคคลทั่วไป -->
           <div class="mb-3">
             <h6 class="text-muted fw-bold mb-2">👥 บุคคลทั่วไป</h6>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="showSection('general')">
+              📖 คู่มือบุคคลทั่วไป
+            </button>
             <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('pg_home')">
               🏠 หน้าหลัก
             </button>
@@ -109,6 +212,9 @@
           <!-- เจ้าหน้าที่ -->
           <div class="mb-3">
             <h6 class="text-muted fw-bold mb-2">👮‍♂️ เจ้าหน้าที่</h6>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="showSection('staff')">
+              📗 คู่มือเจ้าหน้าที่
+            </button>
             <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_home')">
               🏠 หน้าหลัก
             </button>
@@ -153,7 +259,7 @@
       </div>
     </div>
 
-    <!-- Main Content -->
+     <!-- Main Content -->
     <div class="col-md-9 col-lg-10 main-content p-4">
       <div class="container-fluid">
         <!-- Header -->
@@ -182,55 +288,57 @@
           </div>
         </div>
 
-        <!-- บุคคลทั่วไป -->
-        <div class="row mb-5">
-          <div class="col-12">
-            <div class="card border-primary">
-              <div class="card-header bg-primary text-white">
-                <h2 class="mb-0">👥 คู่มือสำหรับบุคคลทั่วไป</h2>
-              </div>
-              <div class="card-body">
-                <p class="lead">ระบบเปิดให้ผู้เข้าร่วมงานดูข้อมูลกิจกรรมและค้นหาการจองของตนเองได้</p>
+        <!-- บุคคลทั่วไป Section -->
+        <div id="general-section" class="content-section active">
+          <div class="row mb-5">
+            <div class="col-12">
+              <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                  <h2 class="mb-0">👥 คู่มือสำหรับบุคคลทั่วไป</h2>
+                </div>
+                <div class="card-body">
+                  <p class="lead">ระบบเปิดให้ผู้เข้าร่วมงานดูข้อมูลกิจกรรมและค้นหาการจองของตนเองได้</p>
 
-                <!-- หน้าหลัก -->
-                <div id="pg_home" class="mb-4">
-                  <div class="card">
-                    <div class="card-header bg-light">
-                      <h4 class="text-primary mb-0">🏠 หน้าหลัก</h4>
-                    </div>
-                    <div class="card-body">
-                      <p>แสดงรายการฐานกิจกรรมทั้งหมด พร้อมรายละเอียด เช่น ชื่อฐาน สถานที่ เวลา และจำนวนที่รับได้</p>
-                      <div class="alert alert-info">
-                        <h6>✨ คุณสมบัติหลัก:</h6>
-                        <ul class="mb-0">
-                          <li>ดูรายการฐานกิจกรรมทั้งหมด</li>
-                          <li>ดูรายละเอียดแต่ละฐาน (ชื่อ, สถานที่, เวลา, จำนวนรับ)</li>
-                          <li>ตรวจสอบสถานะว่างของแต่ละรอบ</li>
-                        </ul>
+                  <!-- หน้าหลัก -->
+                  <div id="pg_home" class="mb-4">
+                    <div class="card">
+                      <div class="card-header bg-light">
+                        <h4 class="text-primary mb-0">🏠 หน้าหลัก</h4>
                       </div>
-                      <img src="https://raw.githubusercontent.com/LogicsDevStudio/EBS-RTNMU/refs/heads/main/images/webapp/games/homepage.jpg" class="img-fluid rounded shadow" alt="ตัวอย่างหน้าหลัก">
+                      <div class="card-body">
+                        <p>แสดงรายการฐานกิจกรรมทั้งหมด พร้อมรายละเอียด เช่น ชื่อฐาน สถานที่ เวลา และจำนวนที่รับได้</p>
+                        <div class="alert alert-info">
+                          <h6>✨ คุณสมบัติหลัก:</h6>
+                          <ul class="mb-0">
+                            <li>ดูรายการฐานกิจกรรมทั้งหมด</li>
+                            <li>ดูรายละเอียดแต่ละฐาน (ชื่อ, สถานที่, เวลา, จำนวนรับ)</li>
+                            <li>ตรวจสอบสถานะว่างของแต่ละรอบ</li>
+                          </ul>
+                        </div>
+                        <img src="https://raw.githubusercontent.com/LogicsDevStudio/EBS-RTNMU/refs/heads/main/images/webapp/games/homepage.jpg" class="img-fluid rounded shadow" alt="ตัวอย่างหน้าหลัก">
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- ค้นหาการจอง -->
-                <div id="pg_search" class="mb-4">
-                  <div class="card">
-                    <div class="card-header bg-light">
-                      <h4 class="text-primary mb-0">🔍 ค้นหาการจอง</h4>
-                    </div>
-                    <div class="card-body">
-                      <p>กรอกชื่อหรือรหัสการจองเพื่อดูข้อมูลการจองกิจกรรมของคุณ</p>
-                      <div class="alert alert-success">
-                        <h6>🎯 วิธีการใช้งาน:</h6>
-                        <ol class="mb-0">
-                          <li>กรอกชื่อหรือรหัสการจองในช่องค้นหา</li>
-                          <li>กดปุ่มค้นหา</li>
-                          <li>ตรวจสอบข้อมูลการจองและ QR Code</li>
-                        </ol>
+                  <!-- ค้นหาการจอง -->
+                  <div id="pg_search" class="mb-4">
+                    <div class="card">
+                      <div class="card-header bg-light">
+                        <h4 class="text-primary mb-0">🔍 ค้นหาการจอง</h4>
                       </div>
-                      <div class="bg-light p-3 rounded">
-                        <p class="mb-0"><strong>💡 เคล็ดลับ:</strong> เก็บ QR Code ไว้เพื่อใช้ในการ Check-in ในวันงาน</p>
+                      <div class="card-body">
+                        <p>กรอกชื่อหรือรหัสการจองเพื่อดูข้อมูลการจองกิจกรรมของคุณ</p>
+                        <div class="alert alert-success">
+                          <h6>🎯 วิธีการใช้งาน:</h6>
+                          <ol class="mb-0">
+                            <li>กรอกชื่อหรือรหัสการจองในช่องค้นหา</li>
+                            <li>กดปุ่มค้นหา</li>
+                            <li>ตรวจสอบข้อมูลการจองและ QR Code</li>
+                          </ol>
+                        </div>
+                        <div class="bg-light p-3 rounded">
+                          <p class="mb-0"><strong>💡 เคล็ดลับ:</strong> เก็บ QR Code ไว้เพื่อใช้ในการ Check-in ในวันงาน</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -240,15 +348,16 @@
           </div>
         </div>
 
-        <!-- เจ้าหน้าที่ -->
-        <div class="row mb-5">
-          <div class="col-12">
-            <div class="card border-success">
-              <div class="card-header bg-success text-white">
-                <h2 class="mb-0">👮‍♂️ คู่มือสำหรับเจ้าหน้าที่</h2>
-              </div>
-              <div class="card-body">
-                <p class="lead">เจ้าหน้าที่สามารถจัดการระบบและดูข้อมูลกิจกรรมได้หลากหลายเมนู</p>
+        <!-- เจ้าหน้าที่ Section -->
+        <div id="staff-section" class="content-section">
+          <div class="row mb-5">
+            <div class="col-12">
+              <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                  <h2 class="mb-0">👮‍♂️ คู่มือสำหรับเจ้าหน้าที่</h2>
+                </div>
+                <div class="card-body">
+                  <p class="lead">เจ้าหน้าที่สามารถจัดการระบบและดูข้อมูลกิจกรรมได้หลากหลายเมนู</p>
 
                 <!-- หน้าหลัก เจ้าหน้าที่ -->
                 <div id="sf_home" class="mb-4">
@@ -781,24 +890,88 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function scrollToSection(sectionId) {
+    function showSection(sectionType) {
+    // ซ่อนทุก content section
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // แสดง section ที่เลือก
+    const targetSection = document.getElementById(sectionType + '-section');
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    // อัพเดท active state ของปุ่มใน sidebar
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // เลื่อนไปที่ด้านบนของเนื้อหา
+    document.querySelector('.main-content').scrollTop = 0;
+    }
+
+    // ปรับปรุงฟังก์ชัน scrollToSection ให้ทำงานได้ดีขึ้น
+    function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ 
+        // ตรวจสอบว่า element อยู่ใน section ใดและแสดง section นั้น
+        const parentSection = element.closest('.content-section');
+        if (parentSection && !parentSection.classList.contains('active')) {
+        // ซ่อนทุก section
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        // แสดง section ที่มี element นั้น
+        parentSection.classList.add('active');
+        }
+        
+        // เลื่อนไปที่ element
+        element.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
-      });
-      
-      // Update active nav link
-      document.querySelectorAll('.nav-link').forEach(link => {
+        });
+        
+        // อัพเดท active nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
-      });
-      event.target.classList.add('active');
+        });
+        if (event && event.target) {
+        event.target.classList.add('active');
+        }
     }
-  }
+    }
 
-  // Smooth scrolling for better UX
-  document.documentElement.style.scrollBehavior = 'smooth';
+    // เพิ่มฟังก์ชันสำหรับจัดการ responsive sidebar
+    function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('show');
+    }
+
+    // เพิ่ม event listener สำหรับปิด sidebar บนมือถือเมื่อคลิกเมนู
+    document.addEventListener('DOMContentLoaded', function() {
+    // ตรวจสอบว่าอยู่ในหน้าจอขนาดเล็กหรือไม่
+    if (window.innerWidth <= 991.98) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            // ปิด sidebar หลังจากคลิกเมนู (บนมือถือ)
+            setTimeout(() => {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+            }
+            }, 300);
+        });
+        });
+    }
+    
+    // ตั้งค่าเริ่มต้นให้แสดง section แรก
+    const firstSection = document.querySelector('.content-section');
+    if (firstSection) {
+        firstSection.classList.add('active');
+    }
+    });
 </script>
 
 </body>
