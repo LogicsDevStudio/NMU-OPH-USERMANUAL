@@ -5,149 +5,696 @@
   <title>คู่มือระบบ NMU Openhouse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      scroll-behavior: smooth;
-    }
-    .sidebar {
-      position: sticky;
-      top: 20px;
-    }
-    .content-section {
-      display: none;
-    }
-    .content-section.active {
-      display: block;
-    }
-    .nav-link.active {
-      font-weight: bold;
-      color: #0d6efd !important;
-    }
-    iframe {
-      max-width: 100%;
-      height: 400px;
-    }
-  </style>
 </head>
 <body class="bg-light">
 
 <div class="container-fluid">
   <div class="row">
     <!-- Sidebar -->
-    <div class="col-md-3 bg-white p-4 border-end min-vh-100">
-      <div class="sidebar">
-        <h4 class="mb-4">📚 เมนูคู่มือ</h4>
-        <div class="nav flex-column">
-    
+    <div class="col-md-3 col-lg-2 bg-white border-end min-vh-100 position-sticky top-0">
+      <div class="p-3">
+        <h5 class="mb-4 text-primary">📚 เมนูคู่มือ</h5>
+        <div class="nav flex-column nav-pills">
+          
           <!-- บุคคลทั่วไป -->
-          <div class="mb-2">
-            <div class="fw-bold text-secondary">👥 บุคคลทั่วไป</div>
-            <button class="nav-link ps-4" onclick="scrollToSubsection('publicGuide', 'pg_home')">🏠 หน้าหลัก</button>
-            <button class="nav-link ps-4" onclick="scrollToSubsection('publicGuide', 'pg_search')">🔍 ค้นหาการจอง</button>
+          <div class="mb-3">
+            <h6 class="text-muted fw-bold mb-2">👥 บุคคลทั่วไป</h6>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('pg_home')">
+              🏠 หน้าหลัก
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('pg_search')">
+              🔍 ค้นหาการจอง
+            </button>
           </div>
     
           <!-- เจ้าหน้าที่ -->
-          <div class="mt-3">
-            <div class="fw-bold text-secondary">👮‍♂️ เจ้าหน้าที่</div>
-            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_login')">🔑 เข้าสู่ระบบ</button>
-            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_booking')">📋 จองกิจกรรม</button>
-            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_manage')">🗂 จัดการข้อมูล</button>
-            <button class="nav-link ps-4" onclick="scrollToSubsection('staffGuide', 'sg_checkin')">✅ Check-in / สถิติ</button>
+          <div class="mb-3">
+            <h6 class="text-muted fw-bold mb-2">👮‍♂️ เจ้าหน้าที่</h6>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_home')">
+              🏠 หน้าหลัก
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_search')">
+              🔍 ค้นหาการจอง
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_login')">
+              🔑 เข้าสู่ระบบ
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_booking')">
+              📋 จองกิจกรรม
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_bookinglist')">
+              📝 รายการจอง
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_users')">
+              👥 จัดการบัญชีผู้ใช้
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_activities')">
+              🎯 จัดการกิจกรรม
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_rounds')">
+              🕒 จัดการรอบฐานกิจกรรม
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_checkin')">
+              ✅ Check-in
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_allbookings')">
+              📊 รายการจองทั้งหมด
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_onsite')">
+              📋 ลงทะเบียนหน้างาน
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_stats')">
+              📈 สถิติ
+            </button>
+            <button class="nav-link w-100 text-start ps-3 mb-1" onclick="scrollToSection('sf_logout')">
+              🚪 ออกจากระบบ
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Main Content -->
-    <div class="col-md-9 p-5">
-      <h1 class="mb-4">📘 คู่มือการใช้งานระบบ NMU Openhouse Management System</h1>
-
-      <!-- Public Guide -->
-      <div id="publicGuide" class="content-section active">
-        <h2 class="text-primary">👥 สำหรับบุคคลทั่วไป</h2>
-        <p>ระบบเปิดให้ผู้เข้าร่วมงานดูข้อมูลกิจกรรมและค้นหาการจองของตนเองได้</p>
-
-        <h4 id="pg_home">🏠 หน้าหลัก</h4>
-        <p>แสดงรายการฐานกิจกรรมทั้งหมด พร้อมรายละเอียด เช่น ชื่อฐาน สถานที่ เวลา และจำนวนที่รับได้</p>
-        <img src="https://raw.githubusercontent.com/LogicsDevStudio/EBS-RTNMU/refs/heads/main/images/webapp/games/homepage.jpg" class="img-fluid rounded shadow mb-3" alt="ตัวอย่างหน้าหลัก">
-
-        <h4 id="pg_search">🔍 ค้นหาการจอง</h4>
-        <p>กรอกชื่อหรือรหัสการจองเพื่อดูข้อมูลการจองกิจกรรมของคุณ</p>
-
-        <h4 class="mt-4">🎬 วิดีโอแนะนำระบบ</h4>
-        <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/ChqGiYcztYs?si=Yk7TN_IAmw0vjl8J" title="YouTube video" allowfullscreen></iframe>
+    <div class="col-md-9 col-lg-10 p-4">
+      <div class="container-fluid">
+        <!-- Header -->
+        <div class="row mb-5">
+          <div class="col-12">
+            <div class="bg-primary text-white p-4 rounded">
+              <h1 class="mb-3">📘 คู่มือการใช้งานระบบ NMU Openhouse Management System</h1>
+              <p class="mb-0 lead">ระบบบริหารจัดการกิจกรรม NMU Openhouse สำหรับบุคคลทั่วไปและเจ้าหน้าที่</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Staff Guide -->
-      <div id="staffGuide" class="content-section">
-        <h2 class="text-primary">👮‍♂️ สำหรับเจ้าหน้าที่</h2>
-        <p>เจ้าหน้าที่สามารถจัดการระบบและดูข้อมูลกิจกรรมได้หลากหลายเมนู</p>
-
-          <h4 id="sg_login">🔑 เข้าสู่ระบบ</h4>
-          <h4 id="sg_booking">📋 จองกิจกรรม</h4>
-        <div class="accordion" id="staffMenu">
-          <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#menu1">เข้าสู่ระบบ</button></h2>
-            <div id="menu1" class="accordion-collapse collapse show" data-bs-parent="#staffMenu">
-              <div class="accordion-body">
-                เข้าสู่ระบบด้วยอีเมลและรหัสผ่านที่ได้รับจากผู้ดูแลระบบ ผ่านหน้า <code>/login</code>
+        <!-- วิดีโอแนะนำ -->
+        <div class="row mb-5">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header bg-info text-white">
+                <h4 class="mb-0">🎬 วิดีโอแนะนำระบบ</h4>
               </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu2">จองกิจกรรม</button></h2>
-            <div id="menu2" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
-              <div class="accordion-body">
-                เจ้าหน้าที่สามารถจองกิจกรรมแทนผู้เข้าร่วมได้ โดยเลือกฐานกิจกรรมและรอบที่ว่าง
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu3">จัดการข้อมูล</button></h2>
-            <div id="menu3" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
-              <div class="accordion-body">
-                <ul>
-                  <h4 id="sg_manage">🗂 จัดการข้อมูล</h4>
-                  <li>🧑‍💼 <strong>จัดการบัญชีผู้ใช้:</strong> เพิ่ม ลบ แก้ไขผู้ใช้ระบบ</li>
-                  <li>🗂 <strong>จัดการกิจกรรม:</strong> เพิ่ม/ลบกิจกรรม ฐานกิจกรรม</li>
-                  <li>🕒 <strong>จัดการรอบฐานกิจกรรม:</strong> ตั้งเวลารอบแต่ละกิจกรรม</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menu4">Check-in / สถิติ</button></h2>
-            <div id="menu4" class="accordion-collapse collapse" data-bs-parent="#staffMenu">
-              <div class="accordion-body">
-                <ul>
-                  <h4 id="sg_checkin">✅ Check-in / สถิติ</h4>
-                  <li>✅ <strong>Check-in:</strong> สแกน QR Code หรือค้นหาชื่อ</li>
-                  <li>📊 <strong>สถิติ:</strong> แสดงจำนวนผู้เข้าร่วมตามกิจกรรม</li>
-                  <li>📋 <strong>ลงทะเบียนหน้างาน:</strong> สำหรับผู้ที่ walk-in</li>
-                </ul>
+              <div class="card-body">
+                <div class="ratio ratio-16x9">
+                  <iframe src="https://www.youtube.com/embed/ChqGiYcztYs?si=Yk7TN_IAmw0vjl8J" title="YouTube video" allowfullscreen class="rounded"></iframe>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <h5 class="mt-5">📋 รายการเมนูทั้งหมดของเจ้าหน้าที่</h5>
-        <ul class="list-group">
-          <li class="list-group-item">หน้าหลัก (รายการฐานกิจกรรม)</li>
-          <li class="list-group-item">ค้นหาการจอง</li>
-          <li class="list-group-item">เข้าสู่ระบบ</li>
-          <li class="list-group-item">จองกิจกรรม</li>
-          <li class="list-group-item">รายการจอง</li>
-          <li class="list-group-item">จัดการบัญชีผู้ใช้</li>
-          <li class="list-group-item">จัดการกิจกรรม</li>
-          <li class="list-group-item">จัดการรอบฐานกิจกรรม</li>
-          <li class="list-group-item">Check-in</li>
-          <li class="list-group-item">รายการจองทั้งหมด</li>
-          <li class="list-group-item">ลงทะเบียนหน้างาน</li>
-          <li class="list-group-item">สถิติ</li>
-          <li class="list-group-item">ออกจากระบบ</li>
-        </ul>
+        <!-- บุคคลทั่วไป -->
+        <div class="row mb-5">
+          <div class="col-12">
+            <div class="card border-primary">
+              <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">👥 คู่มือสำหรับบุคคลทั่วไป</h2>
+              </div>
+              <div class="card-body">
+                <p class="lead">ระบบเปิดให้ผู้เข้าร่วมงานดูข้อมูลกิจกรรมและค้นหาการจองของตนเองได้</p>
+
+                <!-- หน้าหลัก -->
+                <div id="pg_home" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-primary mb-0">🏠 หน้าหลัก</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>แสดงรายการฐานกิจกรรมทั้งหมด พร้อมรายละเอียด เช่น ชื่อฐาน สถานที่ เวลา และจำนวนที่รับได้</p>
+                      <div class="alert alert-info">
+                        <h6>✨ คุณสมบัติหลัก:</h6>
+                        <ul class="mb-0">
+                          <li>ดูรายการฐานกิจกรรมทั้งหมด</li>
+                          <li>ดูรายละเอียดแต่ละฐาน (ชื่อ, สถานที่, เวลา, จำนวนรับ)</li>
+                          <li>ตรวจสอบสถานะว่างของแต่ละรอบ</li>
+                        </ul>
+                      </div>
+                      <img src="https://raw.githubusercontent.com/LogicsDevStudio/EBS-RTNMU/refs/heads/main/images/webapp/games/homepage.jpg" class="img-fluid rounded shadow" alt="ตัวอย่างหน้าหลัก">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ค้นหาการจอง -->
+                <div id="pg_search" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-primary mb-0">🔍 ค้นหาการจอง</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>กรอกชื่อหรือรหัสการจองเพื่อดูข้อมูลการจองกิจกรรมของคุณ</p>
+                      <div class="alert alert-success">
+                        <h6>🎯 วิธีการใช้งาน:</h6>
+                        <ol class="mb-0">
+                          <li>กรอกชื่อหรือรหัสการจองในช่องค้นหา</li>
+                          <li>กดปุ่มค้นหา</li>
+                          <li>ตรวจสอบข้อมูลการจองและ QR Code</li>
+                        </ol>
+                      </div>
+                      <div class="bg-light p-3 rounded">
+                        <p class="mb-0"><strong>💡 เคล็ดลับ:</strong> เก็บ QR Code ไว้เพื่อใช้ในการ Check-in ในวันงาน</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- เจ้าหน้าที่ -->
+        <div class="row mb-5">
+          <div class="col-12">
+            <div class="card border-success">
+              <div class="card-header bg-success text-white">
+                <h2 class="mb-0">👮‍♂️ คู่มือสำหรับเจ้าหน้าที่</h2>
+              </div>
+              <div class="card-body">
+                <p class="lead">เจ้าหน้าที่สามารถจัดการระบบและดูข้อมูลกิจกรรมได้หลากหลายเมนู</p>
+
+                <!-- หน้าหลัก เจ้าหน้าที่ -->
+                <div id="sf_home" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">🏠 หน้าหลัก (เจ้าหน้าที่)</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>แสดงรายการฐานกิจกรรมทั้งหมด พร้อมสถานะและข้อมูลเพิ่มเติมสำหรับเจ้าหน้าที่</p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="alert alert-info">
+                            <h6>📊 ข้อมูลที่แสดง:</h6>
+                            <ul class="mb-0">
+                              <li>รายการฐานกิจกรรมทั้งหมด</li>
+                              <li>สถิติการจองแบบเรียลไทม์</li>
+                              <li>สถานะว่าง/เต็มของแต่ละรอบ</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="alert alert-warning">
+                            <h6>🔧 เครื่องมือเพิ่มเติม:</h6>
+                            <ul class="mb-0">
+                              <li>ปุ่มจองกิจกรรมด่วน</li>
+                              <li>ลิงก์ไปยังการจัดการแต่ละฐาน</li>
+                              <li>แจ้งเตือนสถานะเต็ม</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ค้นหาการจอง เจ้าหน้าที่ -->
+                <div id="sf_search" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">🔍 ค้นหาการจอง (เจ้าหน้าที่)</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>ค้นหาและจัดการข้อมูลการจองของผู้เข้าร่วม</p>
+                      <div class="alert alert-info">
+                        <h6>🎯 ความสามารถเพิ่มเติม:</h6>
+                        <ul class="mb-0">
+                          <li>ค้นหาด้วยชื่อ, รหัสการจอง, หรือเบอร์โทร</li>
+                          <li>แก้ไขข้อมูลการจอง</li>
+                          <li>ยกเลิกการจอง</li>
+                          <li>พิมพ์ QR Code</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- เข้าสู่ระบบ -->
+                <div id="sf_login" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">🔑 เข้าสู่ระบบ</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>เข้าสู่ระบบด้วยอีเมลและรหัสผ่านที่ได้รับจากผู้ดูแลระบบ</p>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="alert alert-warning">
+                            <h6>📋 ขั้นตอนการเข้าสู่ระบบ:</h6>
+                            <ol class="mb-0">
+                              <li>เข้าไปที่หน้า /login</li>
+                              <li>กรอกอีเมลที่ลงทะเบียนไว้</li>
+                              <li>กรอกรหัสผ่าน</li>
+                              <li>กดปุ่ม "เข้าสู่ระบบ"</li>
+                            </ol>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="alert alert-danger">
+                            <h6>⚠️ หมายเหตุ:</h6>
+                            <p class="mb-0">หากลืมรหัสผ่าน ติดต่อผู้ดูแลระบบ</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- จองกิจกรรม -->
+                <div id="sf_booking" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">📋 จองกิจกรรม</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>เจ้าหน้าที่สามารถจองกิจกรรมแทนผู้เข้าร่วมได้ โดยเลือกฐานกิจกรรมและรอบที่ว่าง</p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="alert alert-success">
+                            <h6>✅ ขั้นตอนการจอง:</h6>
+                            <ol class="mb-0">
+                              <li>เลือกฐานกิจกรรมที่ต้องการ</li>
+                              <li>เลือกรอบเวลาที่ว่าง</li>
+                              <li>กรอกข้อมูลผู้เข้าร่วม</li>
+                              <li>ยืนยันการจอง</li>
+                              <li>พิมพ์หรือส่ง QR Code</li>
+                            </ol>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="alert alert-info">
+                            <h6>📝 ข้อมูลที่ต้องกรอก:</h6>
+                            <ul class="mb-0">
+                              <li>ชื่อ-นามสกุล</li>
+                              <li>เบอร์โทรศัพท์</li>
+                              <li>อีเมล (ถ้ามี)</li>
+                              <li>จำนวนผู้เข้าร่วม</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- รายการจอง -->
+                <div id="sf_bookinglist" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">📝 รายการจอง</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>แสดงรายการจองกิจกรรมตามฐานที่ตนเองรับผิดชอบ</p>
+                      <div class="alert alert-primary">
+                        <h6>📊 ข้อมูลที่แสดง:</h6>
+                        <ul class="mb-0">
+                          <li>รายการจองของฐานที่รับผิดชอบ</li>
+                          <li>สถานะการ Check-in</li>
+                          <li>ข้อมูลผู้จอง</li>
+                          <li>เวลาจอง</li>
+                        </ul>
+                      </div>
+                      <div class="bg-light p-3 rounded">
+                        <strong>🔧 การจัดการ:</strong> สามารถแก้ไข, ยกเลิก, หรือ Check-in ผู้เข้าร่วมได้
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- จัดการบัญชีผู้ใช้ -->
+                <div id="sf_users" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">👥 จัดการบัญชีผู้ใช้</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>เพิ่ม ลบ แก้ไขข้อมูลผู้ใช้ระบบและกำหนดสิทธิ์การเข้าถึง</p>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                              <h5>➕ เพิ่มผู้ใช้</h5>
+                              <p class="mb-0">สร้างบัญชีใหม่</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                              <h5>✏️ แก้ไขข้อมูล</h5>
+                              <p class="mb-0">อัพเดทข้อมูลผู้ใช้</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="card bg-danger text-white">
+                            <div class="card-body text-center">
+                              <h5>🗑️ ลบบัญชี</h5>
+                              <p class="mb-0">ยกเลิกการใช้งาน</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="alert alert-info mt-3">
+                        <h6>🔐 ระดับสิทธิ์:</h6>
+                        <ul class="mb-0">
+                          <li><strong>Admin:</strong> จัดการทุกอย่างในระบบ</li>
+                          <li><strong>Staff:</strong> จัดการฐานที่รับผิดชอบ</li>
+                          <li><strong>Checker:</strong> Check-in เท่านั้น</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- จัดการกิจกรรม -->
+                <div id="sf_activities" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">🎯 จัดการกิจกรรม</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>เพิ่ม/ลบกิจกรรม ฐานกิจกรรม และกำหนดรายละเอียดต่างๆ</p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="alert alert-success">
+                            <h6>➕ การเพิ่มฐานกิจกรรม:</h6>
+                            <ul class="mb-0">
+                              <li>ชื่อฐานกิจกรรม</li>
+                              <li>รายละเอียดกิจกรรม</li>
+                              <li>สถานที่จัดกิจกรรม</li>
+                              <li>จำนวนผู้เข้าร่วมต่อรอบ</li>
+                              <li>ระยะเวลาของแต่ละรอบ</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="alert alert-warning">
+                            <h6>⚙️ การแก้ไข:</h6>
+                            <ul class="mb-0">
+                              <li>อัพเดทรายละเอียด</li>
+                              <li>เปลี่ยนสถานที่</li>
+                              <li>ปรับจำนวนรับ</li>
+                              <li>เปิด/ปิดการจอง</li>
+                              <li>ลบฐานกิจกรรม</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- จัดการรอบฐานกิจกรรม -->
+                <div id="sf_rounds" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">🕒 จัดการรอบฐานกิจกรรม</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>ตั้งเวลารอบแต่ละกิจกรรม กำหนดช่วงเวลาเปิด-ปิด และจำนวนรับในแต่ละรอบ</p>
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead class="table-dark">
+                            <tr>
+                              <th>รอบที่</th>
+                              <th>เวลาเริ่ม</th>
+                              <th>เวลาสิ้นสุด</th>
+                              <th>จำนวนรับ</th>
+                              <th>สถานะ</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>09:00</td>
+                              <td>09:30</td>
+                              <td>20 คน</td>
+                              <td><span class="badge bg-success">เปิด</span></td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td>09:30</td>
+                              <td>10:00</td>
+                              <td>20 คน</td>
+                              <td><span class="badge bg-danger">เต็ม</span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="alert alert-info">
+                        <h6>⚙️ การตั้งค่า:</h6>
+                        <ul class="mb-0">
+                          <li>กำหนดช่วงเวลาแต่ละรอบ</li>
+                          <li>ตั้งจำนวนผู้เข้าร่วมสูงสุด</li>
+                          <li>เปิด/ปิดการจองแต่ละรอบ</li>
+                          <li>คัดลอกรอบเวลาไปยังวันอื่น</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Check-in -->
+                <div id="sf_checkin" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">✅ Check-in</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>สแกน QR Code หรือค้นหาชื่อเพื่อ Check-in ผู้เข้าร่วมกิจกรรม</p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                              <h5>📱 สแกน QR Code</h5>
+                              <p class="mb-0">ใช้กล้องสแกน QR Code จากการจอง</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                              <h5>🔍 ค้นหาชื่อ</h5>
+                              <p class="mb-0">พิมพ์ชื่อหรือเบอร์โทรเพื่อค้นหา</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="alert alert-success mt-3">
+                        <h6>✅ หลังจาก Check-in:</h6>
+                        <ul class="mb-0">
+                          <li>ระบบจะบันทึกเวลา Check-in</li>
+                          <li>อัพเดทสถานะผู้เข้าร่วม</li>
+                          <li>นับรวมในสถิติ</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- รายการจองทั้งหมด -->
+                <div id="sf_allbookings" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                        <h4 class="text-success mb-0">📊 รายการจองทั้งหมด</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>ดูข้อมูลการจองทั้งหมดในระบบ กรองตามวันที่ สถานะ หรือฐานกิจกรรม</p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="alert alert-primary">
+                            <h6>🔍 ตัวกรอง:</h6>
+                            <ul class="mb-0">
+                              <li>กรองตามวันที่</li>
+                              <li>กรองตามฐานกิจกรรม</li>
+                              <li>กรองตามสถานะการ Check-in</li>
+                              <li>ค้นหาตามชื่อหรือเบอร์โทร</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="alert alert-success">
+                            <h6>📊 ข้อมูลที่แสดง:</h6>
+                            <ul class="mb-0">
+                              <li>ข้อมูลผู้จอง</li>
+                              <li>ฐานกิจกรรมที่จอง</li>
+                              <li>รอบเวลา</li>
+                              <li>สถานะ Check-in</li>
+                              <li>จำนวนผู้เข้าร่วม</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="bg-light p-3 rounded">
+                        <strong>📥 ส่งออกข้อมูล:</strong> สามารถ Export ข้อมูลเป็น Excel หรือ PDF ได้
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ลงทะเบียนหน้างาน -->
+                <div id="sf_onsite" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">📋 ลงทะเบียนหน้างาน</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>รับลงทะเบียนผู้เข้าร่วมที่มาโดยไม่ได้จองล่วงหน้า (Walk-in)</p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="alert alert-info">
+                            <h6>📝 ขั้นตอนการลงทะเบียน:</h6>
+                            <ol class="mb-0">
+                              <li>เลือกฐานกิจกรรมที่ต้องการ</li>
+                              <li>ตรวจสอบรอบที่ว่าง</li>
+                              <li>กรอกข้อมูลผู้เข้าร่วม</li>
+                              <li>ยืนยันการลงทะเบียน</li>
+                              <li>ออก QR Code สำหรับ Check-in</li>
+                            </ol>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="alert alert-warning">
+                            <h6>⚠️ ข้อควรระวัง:</h6>
+                            <ul class="mb-0">
+                              <li>ตรวจสอบที่ว่างก่อนลงทะเบียน</li>
+                              <li>บันทึกข้อมูลให้ครบถ้วน</li>
+                              <li>แจ้งเวลาและสถานที่ให้ชัดเจน</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- สถิติ -->
+                <div id="sf_stats" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">📈 สถิติ</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>แสดงสถิติการเข้าร่วมกิจกรรม แบ่งตามฐาน เวลา และสถานะต่างๆ</p>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                              <h3>📊</h3>
+                              <h5>จำนวนจอง</h5>
+                              <p class="mb-0">รวมทั้งหมด</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                              <h3>✅</h3>
+                              <h5>Check-in แล้ว</h5>
+                              <p class="mb-0">ผู้เข้าร่วมจริง</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                              <h3>⏰</h3>
+                              <h5>ยังไม่ Check-in</h5>
+                              <p class="mb-0">รอการเข้าร่วม</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-danger text-white">
+                            <div class="card-body text-center">
+                              <h3>❌</h3>
+                              <h5>ไม่มาร่วม</h5>
+                              <p class="mb-0">No Show</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="alert alert-info mt-3">
+                        <h6>📊 รายงานที่มี:</h6>
+                        <ul class="mb-0">
+                          <li>สถิติรายฐานกิจกรรม</li>
+                          <li>สถิติรายช่วงเวลา</li>
+                          <li>อัตราการเข้าร่วมจริง</li>
+                          <li>กราฟแสดงข้อมูล</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ออกจากระบบ -->
+                <div id="sf_logout" class="mb-4">
+                  <div class="card">
+                    <div class="card-header bg-light">
+                      <h4 class="text-success mb-0">🚪 ออกจากระบบ</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>ออกจากระบบอย่างปลอดภัย เมื่อเสร็จสิ้นการใช้งาน</p>
+                      <div class="alert alert-warning">
+                        <h6>⚠️ ข้อควรระวัง:</h6>
+                        <ul class="mb-0">
+                          <li>บันทึกงานทั้งหมดก่อนออกจากระบบ</li>
+                          <li>ออกจากระบบทุกครั้งหลังเสร็จสิ้นการใช้งาน</li>
+                          <li>ไม่แชร์ข้อมูลการเข้าสู่ระบบกับบุคคลอื่น</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ข้อมูลติดต่อและการสนับสนุน -->
+        <div class="row mb-5">
+          <div class="col-12">
+            <div class="card border-info">
+              <div class="card-header bg-info text-white">
+                <h2 class="mb-0">📞 ข้อมูลติดต่อและการสนับสนุน</h2>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="alert alert-primary">
+                      <h5>🛠️ การสนับสนุนด้านเทคนิค</h5>
+                      <p>หากพบปัญหาในการใช้งานระบบ สามารถติดต่อทีมเทคนิคได้</p>
+                      <ul class="mb-0">
+                        <li>อีเมล: support@nmu.ac.th</li>
+                        <li>โทรศัพท์: 0-2345-6789</li>
+                        <li>เวลาทำการ: จันทร์-ศุกร์ 08:00-17:00 น.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="alert alert-success">
+                      <h5>💡 เคล็ดลับการใช้งาน</h5>
+                      <ul class="mb-0">
+                        <li>ใช้เบราว์เซอร์ที่อัพเดทล่าสุด</li>
+                        <li>เปิดใช้งาน JavaScript</li>
+                        <li>ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</li>
+                        <li>เก็บข้อมูลการจองไว้สำรอง</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row">
+          <div class="col-12">
+            <div class="text-center text-muted">
+              <p>&copy; 2024 Nakhon Pathom Rajabhat University. All rights reserved.</p>
+              <p>ระบบ NMU Openhouse Management System เวอร์ชัน 1.0</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -155,30 +702,25 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function showSection(sectionId, btn) {
-    document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-    document.getElementById(sectionId).classList.add('active');
-    document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Update active nav link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
   }
 
-  function scrollToSubsection(sectionId, subId) {
-  // เปลี่ยน section
-  document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-  document.getElementById(sectionId).classList.add('active');
-
-  // เลื่อนไปที่หัวข้อย่อย
-  const target = document.getElementById(subId);
-  if (target) {
-    setTimeout(() => {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  }
-
-  // เปลี่ยนปุ่ม active
-  document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  // Smooth scrolling for better UX
+  document.documentElement.style.scrollBehavior = 'smooth';
 </script>
+
 </body>
 </html>
